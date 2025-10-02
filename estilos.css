@@ -1,10 +1,23 @@
 /* ---------- Base ---------- */
 * { box-sizing: border-box; }
+:root{
+  --bg-dark: #303030;
+  --bg-darker: #2b2b2b;
+  --bg-card: #252525;
+  --text: #303030;
+  --text-inv: #F2F2F2;
+  --brand: #7b1fa2;
+  --border: #4a4a4a;
+}
+
+html { scroll-behavior: smooth; }
 body{
   margin: 0;
   font-family: 'Open Sans', sans-serif;
-  line-height: 1.5;
-  color: #303030;
+  line-height: 1.6;
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 .container{
   width: 100%;
@@ -14,12 +27,22 @@ body{
 }
 header{
   height: 65px;
-  background-color: #7b1fa2;
+  background-color: var(--brand);
   color: white;
   display: flex;
   align-items: center;
   padding-left: 25px;
 }
+
+/* utilidades */
+.sr-only{
+  position: absolute !important;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0,0,0,0);
+  white-space: nowrap; border: 0;
+}
+.subtitulo-centrado, .titulo-centrado { text-align: center; }
 
 /* ---------- Hero ---------- */
 .cara{
@@ -31,7 +54,7 @@ header{
 .uno{
   display: flex;
   justify-content: center;
-  background-color: #303030;
+  background-color: var(--bg-dark);
   color: white;
   padding: 32px 16px;
 }
@@ -43,6 +66,7 @@ header{
   border-radius: 20px;
   overflow: hidden;
   background: #F2F2F2;
+  box-shadow: 0 8px 24px rgba(0,0,0,.2);
 }
 .caja-cara{
   display: flex;
@@ -58,9 +82,10 @@ header{
   align-items: center;
   width: 62%;
   background-color: #F2F2F2;
-  color: #303030;
+  color: var(--text);
   padding: 20px 24px;
 }
+.hero-titulo { margin: 0 0 8px; }
 .presentacion{ margin: 0; }
 
 /* ---------- Sección “Sobre mí” ---------- */
@@ -69,11 +94,7 @@ header{
   padding: 40px 0;
 }
 .aptitudes{ margin-top: 8px; }
-
-.dos h2,
-.dos p { 
-  text-align: center;
-}
+.dos h2, .dos p { text-align: center; }
 
 .tech-list,
 .extra-tech-list {
@@ -81,24 +102,41 @@ header{
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  gap: 24px;
+  gap: 20px;                 /* separación prolija */
   padding-top: 10px;
 }
 
-/* Tamaño uniforme para todos los logos */
-.tech{
-  width: 96px;
-  height: 96px;
+/* ---------- Logos uniformes con animación ---------- */
+.tech {
+  width: 110px;
+  height: 110px;
   object-fit: contain;
   aspect-ratio: 1 / 1;
   display: block;
+
+  background: #fff;
+  border: 1px solid #e6e6e6;
+  border-radius: 14px;
+  padding: 14px;
+
+  box-shadow: 0 2px 10px rgba(0,0,0,.06);
+  transition: transform .25s ease, box-shadow .25s ease; /* animación suave */
+  will-change: transform;
+}
+
+.tech:hover,
+.tech:focus-visible {
+  transform: translate3d(0,-8px,0);  /* se corre un poquito para arriba */
+  box-shadow: 0 10px 22px rgba(0,0,0,.18);
+  outline: none;
+  cursor: pointer;
 }
 
 /* ---------- Sección Proyectos ---------- */
 .tres{
-  background-color: #303030;
-  color: #F2F2F2;
-  padding: 40px 0;
+  background-color: var(--bg-dark);
+  color: var(--text-inv);
+  padding: 40px 0 56px;
 }
 .tres h2{ margin: 0 0 24px 0; }
 
@@ -112,11 +150,12 @@ header{
 
 /* Tarjeta izquierda */
 .project-card{
-  background: #2b2b2b;
-  border: 1px solid #4a4a4a;
+  background: var(--bg-darker);
+  border: 1px solid var(--border);
   border-radius: 12px;
   padding: 16px;
   text-align: center;
+  box-shadow: 0 8px 24px rgba(0,0,0,.18);
 }
 
 /* Imágenes de proyectos con tamaño uniforme */
@@ -131,26 +170,31 @@ header{
   padding: 12px;
 }
 
-/* Botón */
+/* Botones */
 .btn, .card a, footer a{ color: white; }
 .btn{
   display: inline-block;
   padding: 10px 16px;
-  border: 1px solid #F2F2F2;
-  border-radius: 8px;
+  border: 1px solid var(--text-inv);
+  border-radius: 10px;
   text-decoration: none;
-  transition: transform .05s ease, background-color .2s ease;
+  transition: transform .05s ease, background-color .2s ease, box-shadow .2s ease;
+  outline: none;
 }
-.btn:hover{ background-color: #4a4a4a; }
+.btn:hover{ background-color: #4a4a4a; box-shadow: 0 4px 14px rgba(0,0,0,.25); }
 .btn:active{ transform: translateY(1px); }
+.btn:focus-visible{
+  box-shadow: 0 0 0 3px rgba(255,255,255,.3), 0 0 0 6px rgba(123,31,162,.6);
+}
 
 /* Columna derecha */
 .project-info{
-  background: #2b2b2b;
-  border: 1px solid #4a4a4a;
+  background: var(--bg-darker);
+  border: 1px solid var(--border);
   border-radius: 12px;
   padding: 20px;
   color: #eaeaea;
+  box-shadow: 0 8px 24px rgba(0,0,0,.18);
 }
 .project-objetivo{ margin-top: 0; }
 .project-block{ margin-top: 16px; }
@@ -167,13 +211,14 @@ header{
   border-radius: 999px;
   padding: 6px 10px;
   font-size: 14px;
+  white-space: nowrap;
 }
 
 /* Nota/credenciales */
 .project-note{
   margin-top: 18px;
-  background: #252525;
-  border-left: 4px solid #7b1fa2;
+  background: var(--bg-card);
+  border-left: 4px solid var(--brand);
   padding: 12px 14px;
   border-radius: 8px;
   line-height: 1.5;
@@ -190,7 +235,7 @@ footer{
   display: flex;
   flex-direction: column;
   align-items: center;
-  color: #F2F2F2;
+  color: var(--text-inv);
   gap: 12px;
   padding: 24px 16px 40px;
 }
@@ -215,9 +260,13 @@ footer{
 @media (max-width: 640px) {
   .cara{ width: 120px; height: 120px; }
   .projects-grid{
-    grid-template-columns: 1fr; /* 1 columna */
+    grid-template-columns: 1fr; 
   }
-  .tech{ width: 72px; height: 72px; }
+  .tech{ width: 92px; height: 92px; padding: 12px; }
   .project-card img{ height: 180px; }
 }
 
+/* ---------- Accesibilidad: respeta “reducir movimiento” ---------- */
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}
